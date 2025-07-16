@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Жаңа Тапсырма Қосу</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Тапсырма атауы</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Қосу</button>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Артқа</a>
+    </form>
+</div>
+{% endblock %}
+
