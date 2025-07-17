@@ -41,8 +41,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mycourse-1.onrender.com', 'myproject-production.up.railway.app']
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -90,24 +88,17 @@ WSGI_APPLICATION = 'mycourse.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DB_NAME', 'mycourse'),
+        'USER': os.environ.get('DB_USER', 'root'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'root'),
+        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
+        'PORT': os.environ.get('DB_PORT', '8889'),
+    }
 }
 
-if not DATABASES['default']:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'mycourse',
-            'USER': 'root',
-            'PASSWORD': 'root',
-            'HOST': '127.0.0.1',
-            'PORT': '8889',
-        }
-    }
 
 
 # Password validation
@@ -160,4 +151,19 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'narkeshovafarida@gmail.com'  # Мына жерге өз email-ды жаз
 EMAIL_HOST_PASSWORD = 'vvtn xjcn msts sjmc'  # Google App Password енгіз
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
+
 
