@@ -90,6 +90,7 @@ WSGI_APPLICATION = 'mycourse.wsgi.application'
 
 DATABASES = {
     'default': {
+        dj_database_url.config(default=os.environ.get('DATABASE_URL'),
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mycourse',
         'USER': 'root',
