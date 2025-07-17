@@ -9,11 +9,12 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import dj_database_url
 from pathlib import Path
 import pymysql
 pymysql.install_as_MySQLdb()
 import os
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,7 +39,8 @@ SECRET_KEY = 'django-insecure-9wxrua@#5zd@=z*c_+hb^u4nc9zh(2&axv69g7f%0wneq+8vxs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mycourse-1.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'mycourse-1.onrender.com', 'myproject-production.up.railway.app']
+
 
 
 # Application definition
@@ -88,17 +90,24 @@ WSGI_APPLICATION = 'mycourse.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        dj_database_url.config(default=os.environ.get('DATABASE_URL'),
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mycourse',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '8889',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )
 }
+
+if not DATABASES['default']:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'mycourse',
+            'USER': 'root',
+            'PASSWORD': 'root',
+            'HOST': '127.0.0.1',
+            'PORT': '8889',
+        }
+    }
 
 
 # Password validation
