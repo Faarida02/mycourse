@@ -167,4 +167,8 @@ LOGGING = {
     },
 }
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-b926c.up.railway.app',
+]
+
 
